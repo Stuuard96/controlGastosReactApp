@@ -24,6 +24,7 @@ export const NuevoPresupuesto = ({ budget, setBudget, setIsValueBudget }) => {
             className="nuevo-presupuesto"
             type="number"
             placeholder="Añade un presupuesto"
+            autoFocus={true}
             value={budget}
             onChange={(e) => setBudget(Number(e.target.value))}
           />

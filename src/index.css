@@ -25,7 +25,11 @@ body {
   box-sizing: inherit;
 }
 
-.fijar {
+.modal .cerrar-modal.animarCloseBtn {
+  opacity: 1;
+}
+
+.fixed {
   overflow: hidden;
   height: 100vh;
 }
@@ -156,6 +160,7 @@ header h1 {
   width: 90%;
   max-width: 80rem;
   margin: 0 auto;
+  padding-bottom: 2rem;
 }
 .contenedor-presupuesto {
   margin-top: -5rem;
@@ -266,6 +271,9 @@ main {
 .listado-gastos {
   margin-top: 5rem;
 }
+.listado-gastos div:not(:last-child) {
+  margin-bottom: 2rem;
+}
 .listado-gastos h2 {
   color: var(--gris-oscuro);
   font-weight: 900;
@@ -280,7 +288,6 @@ main {
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 2rem;
   width: 100%;
 }
 
@@ -349,6 +356,8 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
 }
 .modal .cerrar-modal {
   position: absolute;
@@ -356,6 +365,9 @@ main {
   top: 3rem;
   width: 3rem;
   height: 3rem;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 300ms;
 }
 .modal .cerrar-modal img {
   width: 100%;
@@ -379,10 +391,6 @@ body .modal {
 .modal .formulario.animar {
   position: relative;
   opacity: 1;
-}
-
-.modal .formulario.cerrar {
-  opacity: 0;
 }
 
 .modal label {

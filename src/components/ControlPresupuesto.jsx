@@ -1,10 +1,19 @@
-export const ControlPresupuesto = ({ budget }) => {
-  const formatBudget = (budget) => {
-    return budget.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
-  };
+import { useEffect, useState } from 'react';
+import { formatPrice } from '../helpers';
+
+export const ControlPresupuesto = ({ budget, expenses }) => {
+  const [available, setAvailable] = useState(0);
+  const [spent, setSpent] = useState(0);
+
+  useEffect(() => {
+    const totalExpense = expenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+    const totalAvailable = budget - totalExpense;
+    setAvailable(totalAvailable);
+    setSpent(totalExpense);
+  }, [expenses]);
 
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
@@ -14,15 +23,15 @@ export const ControlPresupuesto = ({ budget }) => {
       <div className="contenido-presupuesto">
         <p>
           <span>Presupuesto: </span>
-          {formatBudget(budget)}
+          {formatPrice(budget)}
         </p>
         <p>
           <span>Disponible: </span>
-          {formatBudget(0)}
+          {formatPrice(available)}
         </p>
         <p>
           <span>Gastado: </span>
-          {formatBudget(0)}
+          {formatPrice(spent)}
         </p>
       </div>
     </div>
