@@ -33,7 +33,7 @@ export const Gasto = ({ expense, setExpenseEdit, setExpenseDelete }) => {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <div className="gasto sombra">
+        <div className="gasto sombra dos-columnas">
           <div className="contenido-gasto">
             <img src={diccionaryIcons[category]} alt="Imagen categoria" />
             <div className="descripcion-gasto">
