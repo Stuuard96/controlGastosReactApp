@@ -13,6 +13,26 @@ export const App = () => {
   const [expenseEdit, setExpenseEdit] = useState({});
   const [expenseDelete, setExpenseDelete] = useState('');
 
+  let getBudgetLocalStorage = localStorage.getItem('budget')
+    ? Number(localStorage.getItem('budget'))
+    : '';
+  let getExpensesLocalStorage =
+    JSON.parse(localStorage.getItem('expenses')) ?? [];
+
+  useEffect(() => {
+    setBudget(getBudgetLocalStorage);
+    setExpenses(getExpensesLocalStorage);
+    getBudgetLocalStorage > 0 && setIsValueBudget(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('budget', budget ?? '');
+  }, [budget]);
+
+  useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(expenses) ?? []);
+  }, [expenses]);
+
   useEffect(() => {
     if (Object.keys(expenseEdit).length > 0) {
       setModal(true);
