@@ -7,30 +7,21 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import { formateDate } from '../helpers';
-import { diccionaryIcons } from '../assets/img';
 import { formatPrice } from '../helpers';
+import { diccionaryIcons } from '../assets/img';
 
-export const Gasto = ({ expense }) => {
-  const { name, amount, category, date } = expense;
+export const Gasto = ({ expense, setExpenseEdit, setExpenseDelete }) => {
+  const { id, name, amount, category, date } = expense;
+
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction
-        destructive
-        onClick={() => console.log('Editar')}
-        // icon={<img src={diccionaryIcons.delete} alt="delete" />}
-      >
-        Editar
-      </SwipeAction>
+      <SwipeAction onClick={() => setExpenseEdit(expense)}>Editar</SwipeAction>
     </LeadingActions>
   );
 
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction
-        destructive
-        onClick={() => console.log('Delete')}
-        // icon={<img src={diccionaryIcons.delete} alt="delete" />}
-      >
+      <SwipeAction onClick={() => setExpenseDelete(id)} destructive>
         Eliminar
       </SwipeAction>
     </TrailingActions>

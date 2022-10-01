@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Mensaje } from './Mensaje';
 import { generateId } from '../helpers';
 import { CloseBtn } from '../assets/img';
@@ -15,12 +15,23 @@ export const Modal = ({
   animateModal,
   setExpenses,
   expenses,
+  expenseEdit,
+  setExpenseEdit,
 }) => {
   const [message, setMessage] = useState('');
   const [formExpenses, setFormExpenses] = useState(initialForm);
+  const [idEdit, setIdEdit] = useState('');
+  const formSelected = useRef();
+
   const { name, amount, category } = formExpenses;
 
-  const formSelected = useRef();
+  useEffect(() => {
+    if (Object.keys(expenseEdit).length > 0) {
+      setFormExpenses(expenseEdit);
+      setIdEdit(expenseEdit.id);
+    }
+  }, [expenseEdit]);
+
   const handleChangeExpenses = ({ target }) => {
     const { name, value } = target;
     setFormExpenses({
@@ -36,17 +47,29 @@ export const Modal = ({
       setTimeout(() => {
         setMessage('');
       }, 3000);
-
       return;
     }
 
+    if (idEdit) {
+      const newExpenses = expenses.map((expense) => {
+        if (expense.id === idEdit) {
+          formExpenses.amount = Number(formExpenses.amount);
+          return formExpenses;
+        } else {
+          return expense;
+        }
+      });
+      setExpenses(newExpenses);
+    } else {
+      formExpenses.id = generateId();
+      formExpenses.date = Date.now();
+      formExpenses.amount = Number(formExpenses.amount);
+      setExpenses([...expenses, formExpenses]);
+    }
+
     formSelected.current.reset();
-    formExpenses.id = generateId();
-    formExpenses.date = Date.now();
-    formExpenses.amount = Number(formExpenses.amount);
-    setExpenses([...expenses, formExpenses]);
     setFormExpenses(initialForm);
-    setMessage('');
+    setExpenseEdit({});
     setAnimateModal(false);
     setTimeout(() => {
       setModal(false);
@@ -57,6 +80,7 @@ export const Modal = ({
     setAnimateModal(false);
     setTimeout(() => {
       setModal(false);
+      setExpenseEdit({});
     }, 500);
   };
 
@@ -75,7 +99,9 @@ export const Modal = ({
         onSubmit={handleSubmit}
         className={`formulario ${animateModal ? 'animar' : 'cerrar'}`}
       >
-        <legend>Nuevo Gasto</legend>
+        <legend>
+          {Object.keys(expenseEdit).length > 0 ? 'Editar Gasto' : 'Nuevo Gasto'}
+        </legend>
         <div className="campo">
           {message.length > 0 ? (
             <Mensaje className="error" type="error">
@@ -91,6 +117,7 @@ export const Modal = ({
             placeholder="Añade el Nombre del Gasto"
             value={name}
             onChange={handleChangeExpenses}
+            autoFocus={true}
           />
         </div>
         <div className="campo">
@@ -109,10 +136,11 @@ export const Modal = ({
           <select
             id="categoria"
             name="category"
-            defaultValue={'DEFAULT'}
+            value={category}
+            // defaultValue={'DEFAULT'}
             onChange={handleChangeExpenses}
           >
-            <option value="DEFAULT" disabled>
+            <option value="" disabled>
               -- Seleccione --
             </option>
             <option value="ahorro">Ahorro</option>
@@ -124,7 +152,14 @@ export const Modal = ({
             <option value="suscripciones">Suscripciones</option>
           </select>
         </div>
-        <input type="submit" value="Agregar Gasto" />
+        <input
+          type="submit"
+          value={
+            Object.keys(expenseEdit).length > 0
+              ? 'Editar Gasto'
+              : 'Agregar Gasto'
+          }
+        />
       </form>
     </div>
   );
