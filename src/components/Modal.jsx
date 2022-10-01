@@ -60,6 +60,8 @@ export const Modal = ({
         }
       });
       setExpenses(newExpenses);
+      setExpenseEdit({});
+      setIdEdit('');
     } else {
       formExpenses.id = generateId();
       formExpenses.date = Date.now();
@@ -69,7 +71,6 @@ export const Modal = ({
 
     formSelected.current.reset();
     setFormExpenses(initialForm);
-    setExpenseEdit({});
     setAnimateModal(false);
     setTimeout(() => {
       setModal(false);
