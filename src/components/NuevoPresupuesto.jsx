@@ -1,4 +1,4 @@
-import { Children, useState } from 'react';
+import { useState } from 'react';
 import { Mensaje } from './Mensaje';
 
 export const NuevoPresupuesto = ({ budget, setBudget, setIsValueBudget }) => {
@@ -6,11 +6,12 @@ export const NuevoPresupuesto = ({ budget, setBudget, setIsValueBudget }) => {
 
   const handleBudget = (e) => {
     e.preventDefault();
-    if (budget < 0 || isNaN(budget)) {
+    if (budget < 0 || isNaN(budget) || budget === '') {
       setMessage('El presupuesto es incorrecto');
       setIsValueBudget(false);
       return;
     }
+    setBudget(Number(budget));
     setMessage('');
     setIsValueBudget(true);
   };
@@ -26,7 +27,7 @@ export const NuevoPresupuesto = ({ budget, setBudget, setIsValueBudget }) => {
             placeholder="Añade un presupuesto"
             autoFocus={true}
             value={budget}
-            onChange={(e) => setBudget(Number(e.target.value))}
+            onChange={(e) => setBudget(e.target.value)}
           />
         </div>
         <input type="submit" value="Añadir" />

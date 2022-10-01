@@ -5,7 +5,7 @@ import { Modal } from './components/Modal';
 import { NuevoGasto } from './assets/img';
 
 export const App = () => {
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState('');
   const [isValueBudget, setIsValueBudget] = useState(false);
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
