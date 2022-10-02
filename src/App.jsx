@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { ListadoGastos } from './components/ListadoGastos';
 import { Modal } from './components/Modal';
 import { NuevoGasto } from './assets/img';
+import { Filtros } from './components/Filtros';
 
 export const App = () => {
   const [budget, setBudget] = useState('');
@@ -12,6 +13,8 @@ export const App = () => {
   const [expenses, setExpenses] = useState([]);
   const [expenseEdit, setExpenseEdit] = useState({});
   const [expenseDelete, setExpenseDelete] = useState('');
+  const [filter, setFilter] = useState('');
+  const [expenseFilter, setExpenseFilter] = useState([]);
 
   let getBudgetLocalStorage = localStorage.getItem('budget')
     ? Number(localStorage.getItem('budget'))
@@ -52,6 +55,15 @@ export const App = () => {
     }
   }, [expenseDelete]);
 
+  useEffect(() => {
+    if (filter.length > 0) {
+      const expensesFilter = expenses.filter(
+        (expense) => expense.category === filter
+      );
+      setExpenseFilter(expensesFilter);
+    }
+  }, [filter]);
+
   const handleAddExpense = () => {
     setModal(true);
     setExpenseEdit({});
@@ -82,10 +94,13 @@ export const App = () => {
       {isValueBudget ? (
         <>
           <main>
+            <Filtros filter={filter} setFilter={setFilter} />
             <ListadoGastos
               expenses={expenses}
               setExpenseEdit={setExpenseEdit}
               setExpenseDelete={setExpenseDelete}
+              filter={filter}
+              expenseFilter={expenseFilter}
             />
           </main>
           <div className="nuevo-gasto">

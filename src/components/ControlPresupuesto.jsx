@@ -49,12 +49,12 @@ export const ControlPresupuesto = ({ budget, expenses }) => {
           {formatPrice(budget)}
         </p>
         <p>
-          <span>Disponible: </span>
-          {formatPrice(available)}
-        </p>
-        <p>
           <span>Gastado: </span>
           {formatPrice(spent)}
+        </p>
+        <p>
+          <span>Disponible: </span>
+          {formatPrice(available)}
         </p>
       </div>
     </div>

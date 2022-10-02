@@ -138,7 +138,6 @@ export const Modal = ({
             id="categoria"
             name="category"
             value={category}
-            // defaultValue={'DEFAULT'}
             onChange={handleChangeExpenses}
           >
             <option value="" disabled>

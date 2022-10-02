@@ -60,8 +60,13 @@ header h1 {
   margin: 0;
   color: var(--blanco);
   text-align: center;
-
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 3rem;
+  }
 }
 
 .formulario {
