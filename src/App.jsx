@@ -90,6 +90,7 @@ export const App = () => {
         isValueBudget={isValueBudget}
         setIsValueBudget={setIsValueBudget}
         expenses={expenses}
+        setExpenses={setExpenses}
       />
       {isValueBudget ? (
         <>

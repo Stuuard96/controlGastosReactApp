@@ -3,7 +3,13 @@ import { formatPrice } from '../helpers';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-export const ControlPresupuesto = ({ budget, expenses }) => {
+export const ControlPresupuesto = ({
+  budget,
+  expenses,
+  setExpenses,
+  setBudget,
+  setIsValueBudget,
+}) => {
   const [available, setAvailable] = useState(0);
   const [spent, setSpent] = useState(0);
   const [percentage, setPercentage] = useState(0);
@@ -28,6 +34,15 @@ export const ControlPresupuesto = ({ budget, expenses }) => {
     setSpent(totalExpense);
   }, [expenses]);
 
+  const handleResetApp = () => {
+    const resultado = confirm('¿Estás seguro de eliminar todos los gastos?');
+    if (resultado) {
+      setExpenses([]);
+      setBudget('');
+      setIsValueBudget(false);
+    }
+  };
+
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
       <div>
@@ -44,6 +59,9 @@ export const ControlPresupuesto = ({ budget, expenses }) => {
         />
       </div>
       <div className="contenido-presupuesto">
+        <button className="reset-app" type="button" onClick={handleResetApp}>
+          Resetear App
+        </button>
         <p>
           <span>Presupuesto: </span>
           {formatPrice(budget)}
