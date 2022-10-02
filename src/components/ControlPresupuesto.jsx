@@ -35,8 +35,8 @@ export const ControlPresupuesto = ({ budget, expenses }) => {
           value={percentage}
           text={`${percentage}% Gastado`}
           styles={buildStyles({
-            pathColor: '#3b82f6',
-            textColor: '#3b82f6',
+            pathColor: percentage > 100 ? '#dc2626' : '#3b82f6',
+            textColor: percentage > 100 ? '#dc2626' : '#3b82f6',
             pathTransitionDuration: 2,
             trailColor: '#f5f5f5',
             backgroundColor: '#3e98c7',
@@ -52,7 +52,7 @@ export const ControlPresupuesto = ({ budget, expenses }) => {
           <span>Gastado: </span>
           {formatPrice(spent)}
         </p>
-        <p>
+        <p className={`${available < 0 ? 'negativo' : ''}`}>
           <span>Disponible: </span>
           {formatPrice(available)}
         </p>
