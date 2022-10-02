@@ -28,7 +28,7 @@ export const Gasto = ({ expense, setExpenseEdit, setExpenseDelete }) => {
   );
 
   return (
-    <SwipeableList>
+    <SwipeableList style={{ cursor: 'grab' }}>
       <SwipeableListItem
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
@@ -38,7 +38,9 @@ export const Gasto = ({ expense, setExpenseEdit, setExpenseDelete }) => {
             <img src={diccionaryIcons[category]} alt="Imagen categoria" />
             <div className="descripcion-gasto">
               <p className="categoria">{category}</p>
-              <p className="nombre-gasto">{name}</p>
+              <p className="nombre-gasto" style={{ cursor: 'grab' }}>
+                {name}
+              </p>
               <p className="fecha-gasto">
                 Agregado el: <span>{formateDate(date)}</span>
               </p>
